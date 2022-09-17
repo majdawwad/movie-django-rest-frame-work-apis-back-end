@@ -1,6 +1,6 @@
-#from wsgiref.validate import validator
+# from wsgiref.validate import validator
 from rest_framework import serializers
-from watchlist_app.models import WatchList, StreamPlatform
+from watchlist_app.models import WatchList, StreamPlatform, Review
 
 
 # serializers.Serializer class :
@@ -49,13 +49,20 @@ from watchlist_app.models import WatchList, StreamPlatform
 # -----------------------------------------------------------------------------------------
 # serializers.ModelSerializer class :
 
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = "__all__"
+
+
 class WatchListSerializer(serializers.ModelSerializer):
 
-    #length_title = serializers.SerializerMethodField()
+    # length_title = serializers.SerializerMethodField()
+    reviews = ReviewSerializer(many=True, read_only=True)
 
     class Meta:
         model = WatchList
-        #fields = ['id', 'title', 'storyline', 'created']
+        # fields = ['id', 'title', 'storyline', 'created']
         fields = "__all__"
         # exclude = ['active']  # access to all fields except active
 
@@ -82,8 +89,29 @@ class WatchListSerializer(serializers.ModelSerializer):
 
 class StreamPlatformSerializer(serializers.ModelSerializer):
 
+    # Nested relationships return all fields for a object
     watchlist = WatchListSerializer(many=True, read_only=True)
+    # StringRelatedField return single field (name or title) of a object
+    # watchlist = serializers.StringRelatedField(many=True)
+    # PrimaryKeyRelatedField return pk field of a object
+    # watchlist = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    # HyperlinkedRelatedField return hyper link field of a object
+    # watchlist = serializers.HyperlinkedRelatedField(many=True, read_only=True, view_name='movie-details')
+    # SlugRelatedField return slug field of a object
+    # watchlist = serializers.SlugRelatedField(many=True, read_only=True, slug_field='title')
+    # HyperlinkedIdentityField return hyperlinked identity field of a object
+    # watchlist = serializers.HyperlinkedIdentityField(view_name='movie-details')
 
     class Meta:
         model = StreamPlatform
         fields = "__all__"
+
+
+# class StreamPlatformSerializer(serializers.HyperlinkedModelSerializer):
+
+#     # Nested relationships return all fields for a object
+#     watchlist = WatchListSerializer(many=True, read_only=True)
+
+#     class Meta:
+#         model = StreamPlatform
+#         fields = "__all__"

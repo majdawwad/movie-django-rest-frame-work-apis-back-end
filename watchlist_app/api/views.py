@@ -55,7 +55,8 @@ from watchlist_app.api.serializers import StreamPlatformSerializer, WatchListSer
 class StreamPlatformListAV(APIView):
     def get(self, request):
         platform = StreamPlatform.objects.all()
-        serializer = StreamPlatformSerializer(platform, many=True)
+        serializer = StreamPlatformSerializer(
+            platform, many=True, context={'request': request})
         return Response(serializer.data)
 
     def post(self, request):
@@ -74,7 +75,8 @@ class StreamPlatformDetailsAV(APIView):
         except StreamPlatform.DoesNotExist:
             return Response({'error message': 'Not found.'}, status=status.HTTP_404_NOT_FOUND)
 
-        serializer = StreamPlatformSerializer(stream)
+        serializer = StreamPlatformSerializer(
+            stream, context={'request': request})
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def put(self, request, pk):
