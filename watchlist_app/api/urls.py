@@ -21,10 +21,10 @@ urlpatterns = [
     # mixins and generics
     # path('reviews/', ReviewList.as_view(), name='review-list'),
     # path('reviews/<int:pk>/', ReviewDetails.as_view(), name='review-details'),
-    path('stream/<int:pk>/reviews-create/',
+    path('<int:pk>/review-create/',
          ReviewCreate.as_view(), name='review-create'),
-    path('stream/<int:pk>/reviews/', ReviewList.as_view(), name='review-list'),
-    path('stream/reviews/<int:pk>/',
+    path('<int:pk>/reviews/', ReviewList.as_view(), name='review-list'),
+    path('reviews/<int:pk>/',
          ReviewDetails.as_view(), name='review-details'),
     # veiwset
     path('', include(router.urls))
