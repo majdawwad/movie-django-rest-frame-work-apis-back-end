@@ -42,7 +42,7 @@ class StreamPlatformTestCase(APITestCase):
             "name": "Netflix",
             "about": "#1 Streaming Platform - Updated!",
             "website": "https://www.netflix.com"
-        }go
+        }
         response = self.client.put(
             reverse('streamplatform-detail', args=(self.stream.id,)), data)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
