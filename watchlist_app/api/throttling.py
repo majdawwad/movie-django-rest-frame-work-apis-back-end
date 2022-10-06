@@ -1,9 +1,9 @@
-from rest_framework.throttling import UserRateThrottle
+from rest_framework import throttling
 
 
-class ReviewCreateThrottle(UserRateThrottle):
+class ReviewCreateThrottle(throttling.UserRateThrottle):
     scope = 'review-create'
 
 
-class ReviewListThrottle(UserRateThrottle):
+class ReviewListThrottle(throttling.UserRateThrottle):
     scope = 'review-list'

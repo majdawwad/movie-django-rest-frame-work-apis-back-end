@@ -1,6 +1,6 @@
 # from wsgiref.validate import validator
 from rest_framework import serializers
-from watchlist_app.models import WatchList, StreamPlatform, Review
+from watchlist_app import models
 
 
 # serializers.Serializer class :
@@ -54,7 +54,7 @@ class ReviewSerializer(serializers.ModelSerializer):
     review_user = serializers.StringRelatedField(read_only=True)
 
     class Meta:
-        model = Review
+        model = models.Review
         exclude = ('watchlist',)
         #fields = "__all__"
 
@@ -66,7 +66,7 @@ class WatchListSerializer(serializers.ModelSerializer):
     platform = serializers.CharField(source='platform.name')
 
     class Meta:
-        model = WatchList
+        model = models. WatchList
         # fields = ['id', 'title', 'storyline', 'created']
         fields = "__all__"
         # exclude = ['active']  # access to all fields except active
@@ -108,7 +108,7 @@ class StreamPlatformSerializer(serializers.ModelSerializer):
     # watchlist = serializers.HyperlinkedIdentityField(view_name='movie-details')
 
     class Meta:
-        model = StreamPlatform
+        model = models.StreamPlatform
         fields = "__all__"
 
 
